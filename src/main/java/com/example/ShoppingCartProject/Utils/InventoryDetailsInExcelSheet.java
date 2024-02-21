@@ -24,6 +24,7 @@ public class InventoryDetailsInExcelSheet {
                     createCell(2).setCellValue("Quantity left");
         }
 
+
         workbook.getSheet("InventoryDetails").
                 getRow(existingProduct.getId().intValue()).getCell(2).setCellValue(givenProduct.getQuantity());
         try {
