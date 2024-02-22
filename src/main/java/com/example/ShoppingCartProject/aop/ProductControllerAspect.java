@@ -19,8 +19,8 @@ public class ProductControllerAspect {
 
         // You can perform additional actions here, for example, logging or auditing
         joinPoint.getArgs();
-        System.out.println("Method " + joinPoint.getSignature().getName()+" with args "+
-                joinPoint.getArgs().toString()+" executed in " + executionTime + "ms");
+        System.out.println("Method " + joinPoint.getSignature().getName()+
+                " executed in " + executionTime + "ms");
 
         return result;
     }

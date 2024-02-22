@@ -4,6 +4,7 @@ import com.example.ShoppingCartProject.Utils.InventoryDetailsInExcelSheet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -27,14 +28,14 @@ public class ProductService {
 //        return productRepository.findProductById(productID);
 //    }
 //
-//    public Product findProductByProductName(String productName){
-//        return productRepository.findProductByProductName(productName);
-//    }
+    public List<Product> findProductByProductName(String productName){
+        return productRepository.findProductByProductName(productName);
+    }
 
     public int save (Product givenProduct){
         List<Product> productInInventory = productRepository.
                 findProductByProductName(givenProduct.getProductName());
-        if(productInInventory.isEmpty()){
+        if(!productInInventory.isEmpty()){
             System.out.println("Product does not exist");
             inventoryDetailsInExcelSheet.addInventoryDetailsInExcelSheet(givenProduct);
             return productRepository.saveNewProduct(givenProduct);

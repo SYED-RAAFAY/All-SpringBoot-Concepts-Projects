@@ -1,5 +1,6 @@
 package com.example.ShoppingCartProject.product;
 
+import com.example.ShoppingCartProject.exceptions.ProductNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,11 +34,17 @@ public class ProductController {
 //        return productService.findProductByProductID(id);
 //    }
 
-//    @GetMapping("/get-product-by-name")
-//    public Product getProductByName(HttpServletRequest request){
-//        String name = request.getParameter("productName");
-//        return productService.findProductByProductName(name);
-//    }
+    @GetMapping("/get-product-by-name")
+    public ResponseEntity<Product>getProductByName(HttpServletRequest request) throws ProductNotFoundException {
+        String name = request.getParameter("productName");
+        System.out.println(name);
+        try {
+            Product product = productService.findProductByProductName(name).get(0);
+            return new ResponseEntity(product, HttpStatus.OK);
+        }catch (Exception e){
+            throw new ProductNotFoundException(name);
+        }
+    }
 
     @PostMapping("/admin/add-or-edit")
     public ResponseEntity<Product> addOrEditProduct(@RequestBody Product givenProduct) {
